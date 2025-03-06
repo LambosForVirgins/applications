@@ -22,6 +22,7 @@ const initialKeys = {
   daily_giveaways: false,
   onboardingv2: false,
   landing_sections: false,
+  deposit_increment: false,
   withdrawV2: false,
 };
 

@@ -46,3 +46,9 @@
         text-align: center;
     }
 }
+
+.controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(32px, 140px));
+    gap: var(--size-100);
+}
