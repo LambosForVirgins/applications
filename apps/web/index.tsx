@@ -1,7 +1,6 @@
 import "./instrument";
 import "./reset.css";
 import "./globals.css";
-import "@solana/wallet-adapter-react-ui/styles.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { App } from "./app";

@@ -11,6 +11,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { TierSlider } from "@/components/TierSlider/TierSlider";
 import { useTokenMint } from "@/hooks/useTokenMint";
 import { hasMaturingTokens } from "@/utils/membership/hasMaturingTokens";
+import { totalTokenBalanceSelector } from "@/state/mints/selectors";
+import { useDevToggles } from "@/state/application/useDevToggles";
 
 export const SubscriptionScene = ({
   testID = "subscription",
@@ -19,9 +21,11 @@ export const SubscriptionScene = ({
   const { tier, updateTier, loading } = useSubscription();
   const { member } = useMembership();
   const { balance = 0 } = useTokenMint();
+  const totalBalance = useRecoilValue(totalTokenBalanceSelector);
   const packages = useRecoilValue(subscriptionOptionsAtom);
   const [amount, setAmount] = useState<number>(member?.totalAmount || 0);
   const [animationData, setAnimationData] = useState<object | null>(null);
+  const { isEnabled } = useDevToggles();
 
   useEffect(() => {
     const loadAnimation = async () => {
@@ -79,6 +83,27 @@ export const SubscriptionScene = ({
           max={Math.max(balance, 5_000_000)}
           animationData={animationData}
         />
+      )}
+
+      {isEnabled("deposit_increment") && (
+        <span className={styles.controls}>
+          <Button
+            testID={`${testID}.subtract`}
+            size={"small"}
+            disabled={amount <= 0}
+            onClick={() => setAmount(amount - 1000)}
+          >
+            -
+          </Button>
+          <Button
+            testID={`${testID}.add`}
+            size={"small"}
+            disabled={amount >= totalBalance}
+            onClick={() => setAmount(amount + 1000)}
+          >
+            +
+          </Button>
+        </span>
       )}
 
       <div

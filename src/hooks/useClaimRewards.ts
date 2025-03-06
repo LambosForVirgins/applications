@@ -14,12 +14,6 @@ export const useClaimRewards = () => {
   const claim = useCallback(async () => {
     if (!publicKey || pending) return;
 
-    alert(
-      "Claiming rewards has been temporarily disabled. We are working on a fix as we speak."
-    );
-
-    return;
-
     setPending(true);
 
     try {
@@ -34,8 +28,6 @@ export const useClaimRewards = () => {
       const txHash = await sendTransaction(transaction, connection).catch(
         (err) => console.log("err", err)
       );
-
-      console.log("Claim TX", txHash);
 
       if (!txHash) return;
 

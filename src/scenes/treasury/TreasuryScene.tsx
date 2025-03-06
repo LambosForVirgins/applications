@@ -26,9 +26,7 @@ export const TreasuryScene = ({
   const [marketCap, setMarketCap] = useState(fullyDilutedValue(0.00019));
   const vestedAccounts = useRecoilValue(vestedAccountsAtom);
   const allocation = useRecoilValue(tokenAllocationSelector);
-  const totalHoldingBalance = useRecoilValue(
-    totalTokenBalanceSelector(publicKey)
-  );
+  const totalHoldingBalance = useRecoilValue(totalTokenBalanceSelector);
 
   const tokenPrice = useMemo(() => marketCap / MAXIMUM_SUPPLY, [marketCap]);
 
